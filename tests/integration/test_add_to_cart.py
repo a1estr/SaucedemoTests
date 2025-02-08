@@ -26,7 +26,9 @@ def test_add_to_cart(driver, item_name, item_in_cart):
     '''
     # Залогинимся и перейдем на страницу с товарами
     login_page = LoginPage(driver)
-    login_page.valid_login()
+    login_page.valid_login(name="standard_user",
+                           password="secret_sauce"
+                           )
 
     # Добавим товар в корзину
     inventory_page = InventoryPage(driver)

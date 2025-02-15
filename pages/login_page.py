@@ -27,8 +27,8 @@ class LoginPage(BasePage):
     def get_login_page(self):
         return self.open_url("https://www.saucedemo.com/")
 
-    def valid_login(self):
+    def valid_login(self, name, password):
         self.get_login_page()
-        self.enter_username("standard_user")
-        self.enter_password("secret_sauce")
+        self.enter_username(name)
+        self.enter_password(password)
         self.click_login()

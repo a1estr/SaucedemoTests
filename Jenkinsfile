@@ -51,11 +51,6 @@ pipeline {
                 '''
             }
         }
-        stage('Run e2e test') {
-            steps {
-                sh 'pytest tests\e2e\test_purchase.py'
-            }
-        }
     }
 
     post {

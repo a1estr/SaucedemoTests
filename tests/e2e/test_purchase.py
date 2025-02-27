@@ -1,10 +1,13 @@
+import allure
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_customer_page import CheckoutCustomerPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 
-
+@allure.feature("e2e test")
+@allure.severity(severity_level="high")
+@allure.feature("Test Purchase")
 def test_purchase(driver):
     # Залогинимся и перейдем на страницу с товарами
     login_page = LoginPage(driver)

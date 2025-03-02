@@ -1,6 +1,5 @@
 selenium
 pytest
 webdriver-manager
-webdriver
 allure-pytest
 pytest-flake8

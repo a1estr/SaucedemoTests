@@ -35,7 +35,8 @@ def test_add_to_cart(driver, item_name, item_in_cart):
     inventory_page.add_to_cart(item_name)
 
     # Проверим, что корзина не пустая
-    assert inventory_page.items_in_cart_count() == "1", "Число товаров в корзине != 1"
+    assert inventory_page.items_in_cart_count() == "1", \
+        "Число товаров в корзине != 1"
 
     # Перейдем в корзину
     inventory_page.open_cart()
@@ -45,4 +46,5 @@ def test_add_to_cart(driver, item_name, item_in_cart):
     cart_page = CartPage(driver)
     assert cart_page.get_item_name_in_cart() == item_in_cart, \
         "Товар не был добавлен в корзину"
-    assert cart_page.items_in_cart_count() == "1", "Число товаров в корзине != 1"
+    assert cart_page.items_in_cart_count() == "1", \
+        "Число товаров в корзине != 1"

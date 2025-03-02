@@ -26,7 +26,9 @@ class InventoryPage(BasePage):
         if "test" not in item_name:
             self.click_element((By.ID, f"add-to-cart-sauce-labs-{item_name}"))
         else:
-            self.click_element((By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)"))
+            self.click_element(
+                (By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)")
+            )
 
     def items_in_cart_count(self):
         return self.find_element(self.CART_BADGE).text

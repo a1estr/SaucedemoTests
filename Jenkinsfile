@@ -2,21 +2,19 @@ pipeline {
     agent any
 
     environment {
-        CONTAINER_NAME = 'python-tests-container-Alexey'
         ALLURE_RESULTS_DIR = 'target/allure-results'
-        JOB_NAME = ''
+        JOB_NAME = 'HW29_Pipline_with_tests'
     }
 
     stages {
 
         stage('Determine Changes') {
             steps {
-                sh 'ls -a'
-                sh'pwd'
                 script {
                     def changes = sh(returnStdout: true, script: 'git diff-tree --no-commit-id --name-only -r HEAD').trim()
-                    // env.UI_CHANGED = changes.contains('frontend/').toString()
-                    // env.BACKEND_CHANGED = changes.contains('backend/').toString()
+                    env.CONTAINER_NAME = "python-tests-container-${env.BUILD_NUMBER}"
+                    sh'echo $CONTAINER_NAME'
+
                 }
             }
         }
@@ -25,7 +23,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Создаем контейнер для тестов..."
-                docker run -d --rm --name $CONTAINER_NAME -v  /var/lib/docker/volumes/jenkins-data/_data/workspace/Alexey_lesson28:/app -w /app python:3.9 tail -f /dev/null
+                docker run -d --rm --name $CONTAINER_NAME -v  /var/lib/docker/volumes/jenkins-data-new/_data/workspace/$JOB_NAME:/app -w /app python:3.9 tail -f /dev/null
 
                 '''
             }
@@ -34,6 +32,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
+                echo $BUILD_NUMBER
                 echo "Проверяем файлы внутри контейнера..."
                 docker exec $CONTAINER_NAME ls -la /app
 
@@ -80,7 +79,6 @@ pipeline {
             sh '''
             echo "Останавливаем и удаляем контейнер..."
             docker stop $CONTAINER_NAME || true
-            docker rm $CONTAINER_NAME || true
             rm -rf allure.zip $ALLURE_RESULTS_DIR
             '''
         }

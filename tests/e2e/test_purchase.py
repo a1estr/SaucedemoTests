@@ -5,6 +5,7 @@ from pages.cart_page import CartPage
 from pages.checkout_customer_page import CheckoutCustomerPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 
+
 @allure.feature("e2e test")
 @allure.severity(severity_level="high")
 @allure.feature("Test Purchase")
@@ -22,7 +23,8 @@ def test_purchase(driver):
     inventory_page.add_to_cart("fleece-jacket")
 
     # Проверим, что корзина не пустая
-    assert inventory_page.items_in_cart_count() == "2", "Число товаров в корзине != 2"
+    assert inventory_page.items_in_cart_count() == "2", \
+        "Число товаров в корзине != 2"
 
     # Перейдем в корзину
     inventory_page.open_cart()
@@ -34,7 +36,8 @@ def test_purchase(driver):
     for item in added_items:
         assert item.text in inventory_page.get_items_list(), \
             "Товары не были добавлены в корзину"
-    assert cart_page.items_in_cart_count() == "2", "Число товаров в корзине != 2"
+    assert cart_page.items_in_cart_count() == "2", \
+        "Число товаров в корзине != 2"
 
     # Перейдем на страницу заполнения информации покупателя
     cart_page.checkout_order()
@@ -59,7 +62,8 @@ def test_purchase(driver):
     for item in overview_items:
         assert item.text in inventory_page.get_items_list(), \
             "Товары не были добавлены в корзину"
-    assert cart_page.items_in_cart_count() == "2", "Число товаров в корзине != 2"
+    assert cart_page.items_in_cart_count() == "2", \
+        "Число товаров в корзине != 2"
 
     # Завершаем оформление заказа
     overview_page.complete_order()

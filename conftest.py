@@ -13,4 +13,3 @@ def driver():
     config_driver = webdriver.Chrome(service=service, options=options)
     yield config_driver
     config_driver.quit()
-

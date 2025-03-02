@@ -1,6 +1,7 @@
 import pytest
 from pages.login_page import LoginPage
 
+
 @pytest.mark.parametrize(
     ("name", "password"), [
         ('standard_user', 'secret_sauce'),
@@ -16,6 +17,7 @@ def test_valid_login(driver, name, password):
     login_page.enter_password(password)
     login_page.click_login()
     if name == 'locked_out_user':
-        assert "https://www.saucedemo.com/" == driver.current_url, "Ошибка: логин удался"
+        assert "https://www.saucedemo.com/" == driver.current_url, \
+            "Ошибка: логин удался"
     else:
         assert "inventory" in driver.current_url, "Ошибка: логин не удался"

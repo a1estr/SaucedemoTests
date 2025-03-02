@@ -23,7 +23,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Создаем контейнер для тестов..."
-                docker run -d --rm --name $CONTAINER_NAME -v  /var/lib/docker/volumes/jenkins-data-new/_data/workspace/$JOB_NAME:/app -w /app python:3.9 tail -f /dev/null
+                docker run -d --rm --name $CONTAINER_NAME -v  /var/lib/docker/volumes/jenkins-data-new/_data/workspace/$JOB_NAME:/app -w /app cimg/python:3.13.1-browsers tail -f /dev/null
 
                 '''
             }

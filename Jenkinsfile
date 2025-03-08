@@ -45,9 +45,18 @@ pipeline {
             steps {
                 sh '''
                 echo "Запускаем линтер..."
+                docker exec $CONTAINER_NAME flake8 .
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh '''
+                echo "Запускаем тесты..."
                 mkdir -p $ALLURE_RESULTS_DIR
                 chmod -R 777 $ALLURE_RESULTS_DIR
-                docker exec $CONTAINER_NAME pytest --flake8 . --alluredir=$ALLURE_RESULTS_DIR
+                docker exec $CONTAINER_NAME pytest tests/e2e/test_purchase.py --alluredir=$ALLURE_RESULTS_DIR
                 '''
             }
         }

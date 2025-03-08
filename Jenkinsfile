@@ -24,7 +24,6 @@ pipeline {
                 sh '''
                 echo "Создаем контейнер для тестов..."
                 docker run -d --rm --name $CONTAINER_NAME -v  /var/lib/docker/volumes/jenkins-data-new/_data/workspace/$JOB_NAME:/app -w /app cimg/python:3.13.1-browsers tail -f /dev/null
-
                 '''
             }
         }
@@ -38,7 +37,6 @@ pipeline {
 
                 echo "Устанавливаем зависимости..."
                 docker exec $CONTAINER_NAME pip install --no-cache-dir -r /app/requirements.txt
-                chmod -R 777 /app/target/allure-results/
                 '''
             }
         }
@@ -48,6 +46,7 @@ pipeline {
                 sh '''
                 echo "Запускаем линтер..."
                 mkdir -p $ALLURE_RESULTS_DIR
+                chmod -R 777 $ALLURE_RESULTS_DIR
                 docker exec $CONTAINER_NAME pytest --flake8 . --alluredir=$ALLURE_RESULTS_DIR
                 '''
             }

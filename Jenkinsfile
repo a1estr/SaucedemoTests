@@ -38,6 +38,7 @@ pipeline {
 
                 echo "Устанавливаем зависимости..."
                 docker exec $CONTAINER_NAME pip install --no-cache-dir -r /app/requirements.txt
+                sudo chmod -R 777 /app/target/allure-results/
                 '''
             }
         }
